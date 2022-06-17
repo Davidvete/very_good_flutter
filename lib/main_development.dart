@@ -8,7 +8,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tradepoint/app/app.dart';
 
 void main() {
@@ -17,7 +16,7 @@ void main() {
   };
 
   runZonedGuarded(
-    () => runApp(const ProviderScope(child: App())),
+    () => runApp(const App()),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

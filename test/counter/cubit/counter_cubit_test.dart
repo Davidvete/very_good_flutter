@@ -5,28 +5,45 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-//import 'package:bloc_test/bloc_test.dart';
 import 'package:tradepoint/counter/counter.dart';
 
 void main() {
-  group('CounterCubit', () {
-    test('initial state is 0', () {
-      expect(CounterCubit().state, equals(0));
-    });
+  testWidgets('update the UI when incrementing the state', (tester) async {
+    await tester.pumpWidget(const ProviderScope(child: CounterPage()));
 
-    // blocTest<CounterCubit, int>(
-    //   'emits [1] when increment is called',
-    //   build: () => CounterCubit(),
-    //   act: (cubit) => cubit.increment(),
-    //   expect: () => [equals(1)],
-    // );
+    // The default value is `0`, as declared in our provider
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
 
-    // blocTest<CounterCubit, int>(
-    //   'emits [-1] when decrement is called',
-    //   build: () => CounterCubit(),
-    //   act: (cubit) => cubit.decrement(),
-    //   expect: () => [equals(-1)],
-    // );
+    // Increment the state and re-render
+    // ignore: lines_longer_than_80_chars
+    await tester.tap(
+        find.byKey(const Key('counterView_increment_floatingActionButton')));
+    await tester.pump();
+
+    // The state have properly incremented
+    expect(find.text('1'), findsOneWidget);
+    expect(find.text('0'), findsNothing);
+  });
+
+  testWidgets('update the UI when decrementing the state', (tester) async {
+    await tester.pumpWidget(const ProviderScope(child: CounterPage()));
+
+    // The default value is `0`, as declared in our provider
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+    // Increment the state and re-render
+    // ignore: lines_longer_than_80_chars
+    await tester.tap(
+        find.byKey(const Key('counterView_decrement_floatingActionButton')));
+    await tester.pump();
+
+    // The state have properly incremented
+    expect(find.text('-1'), findsOneWidget);
+    expect(find.text('0'), findsNothing);
   });
 }
