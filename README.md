@@ -160,3 +160,29 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
+
+
+## CI/CD pipeline creation ios
+
+Please follow these steps:
+
+### Install the Apple certificate and provisioning profile.
+
+Generate a Base64 encoded .p12 certificate string in your local machine. If using linux/Mac, you can use the base64 cli command or certutil command if using Windows. Store the generated Base .p12 certificate as a secrect on Github -> Settings -> Secrets -> New repository secret using the secret name P12_BASE64 or any other suitable name tag. Next step is to install your Apple Certificate, to do so we will use an action from the community called apple-actions/import-codesign-certs@v1. Final step is to install the provisioning profile.
+
+### Specify the correct version of Flutter.
+
+To be able to use Flutter in our workflow we need to install it. In order to reach this we will use the subosito/flutter-action@v1.4.0 action from the community. In this step, we will specify the specific Flutter version we would like to use.
+
+### Update the Flutter pub packages and build the application using flutter for release.
+
+Update the Flutter package and build the application in release mode.
+
+### Generate an .ipa for release
+
+Generate an xarchive then export it as an ipa.
+
+### Share on Testflight.
+
+Using the apple-actions/upload-testflight-build@v1 action from the community, release the exported ipa to Testflight.
+
