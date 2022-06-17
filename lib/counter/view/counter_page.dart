@@ -13,7 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tradepoint/counter/counter.dart';
 import 'package:tradepoint/l10n/l10n.dart';
 
-final counterProvider = StateNotifierProvider((ref) {
+final counterProvider = StateNotifierProvider.autoDispose((ref) {
   return CounterCubit();
 });
 
