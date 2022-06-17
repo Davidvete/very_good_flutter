@@ -162,7 +162,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
 
 
-## CI/CD pipeline creation ios
+## CI/CD pipeline creation for ios
 
 Please follow these steps:
 
